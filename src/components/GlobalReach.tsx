@@ -1,5 +1,5 @@
 'use client';
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
 
 const regions = [
@@ -14,6 +14,54 @@ const regions = [
 ];
 
 const maxUsers = Math.max(...regions.map((r) => r.users));
+
+const statData = [
+  { label: 'Active Countries', value: '120+', change: '+12 this month', color: '#6366f1', num: 120, suffix: '+', decimals: 0 },
+  { label: 'Daily Active Users', value: '6,200', change: '+8% vs last week', color: '#10b981', num: 6200, suffix: '', decimals: 0 },
+  { label: 'Tasks Completed/hr', value: '3,400', change: '24/7 activity', color: '#00d4ff', num: 3400, suffix: '', decimals: 0 },
+  { label: 'Avg. User Rating', value: '4.8 / 5', change: 'Based on 2.1K reviews', color: '#f59e0b', num: 4.8, suffix: ' / 5', decimals: 1 },
+];
+
+function StatCard({ s, index }: { s: typeof statData[0]; index: number }) {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true });
+  const [display, setDisplay] = useState(0);
+  const [started, setStarted] = useState(false);
+
+  useEffect(() => {
+    if (!inView || started || s.num === 0) return;
+    setStarted(true);
+    let startTime: number | null = null;
+    const duration = 2000;
+    function animate(ts: number) {
+      if (!startTime) startTime = ts;
+      const progress = Math.min((ts - startTime) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setDisplay(s.num * eased);
+      if (progress < 1) requestAnimationFrame(animate);
+      else setDisplay(s.num);
+    }
+    requestAnimationFrame(animate);
+  }, [inView, started, s.num]);
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, x: 20 }}
+      animate={inView ? { opacity: 1, x: 0 } : {}}
+      transition={{ duration: 0.4, delay: 0.1 * index }}
+      whileHover={{ y: -3 }}
+      whileTap={{ scale: 0.98 }}
+      className="p-5 rounded-2xl bg-[#12121a] neon-border cursor-default"
+    >
+      <div className="text-xs text-[#64748b] mb-1">{s.label}</div>
+      <div className="text-2xl font-bold text-white mb-1">
+        {inView ? display.toFixed(s.decimals) + s.suffix : '0' + s.suffix}
+      </div>
+      <div className="text-xs font-medium" style={{ color: s.color }}>{s.change}</div>
+    </motion.div>
+  );
+}
 
 export default function GlobalReach() {
   const ref = useRef(null);
@@ -70,25 +118,8 @@ export default function GlobalReach() {
 
           {/* Stats cards */}
           <div className="space-y-4">
-            {[
-              { label: 'Active Countries', value: '120+', change: '+12 this month', color: '#6366f1' },
-              { label: 'Daily Active Users', value: '6,200', change: '+8% vs last week', color: '#10b981' },
-              { label: 'Tasks Completed/hr', value: '3,400', change: '24/7 activity', color: '#00d4ff' },
-              { label: 'Avg. User Rating', value: '4.8 / 5', change: 'Based on 2.1K reviews', color: '#f59e0b' },
-            ].map((s, i) => (
-              <motion.div
-                key={s.label}
-                initial={{ opacity: 0, x: 20 }}
-                animate={inView ? { opacity: 1, x: 0 } : {}}
-                transition={{ duration: 0.4, delay: 0.1 * i }}
-                whileHover={{ y: -2 }}
-                whileTap={{ scale: 0.98 }}
-                className="p-5 rounded-2xl bg-[#12121a] neon-border"
-              >
-                <div className="text-xs text-[#64748b] mb-1">{s.label}</div>
-                <div className="text-xl font-bold text-white mb-1">{s.value}</div>
-                <div className="text-xs" style={{ color: s.color }}>{s.change}</div>
-              </motion.div>
+            {statData.map((s, i) => (
+              <StatCard key={s.label} s={s} index={i} />
             ))}
           </div>
         </div>
