@@ -1,4 +1,5 @@
 import Header from '@/components/Header';
+import ScrollDots from '@/components/ScrollDots';
 import Hero from '@/components/Hero';
 import LiveStatsBar from '@/components/LiveStatsBar';
 import HowItWorks from '@/components/HowItWorks';
@@ -16,6 +17,7 @@ export default function Home() {
   return (
     <main>
       <Header />
+      <ScrollDots />
       <Hero />
       <LiveStatsBar />
       <div className="section-divider" />
