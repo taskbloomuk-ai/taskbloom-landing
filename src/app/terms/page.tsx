@@ -3,7 +3,8 @@ import LegalLayout from '@/components/LegalLayout';
 export default function TermsPage() {
   return (
     <LegalLayout title="Terms of Service" updated="7 May 2026">
-      <p>
+      <div className="legal-content">
+      <p className="intro-highlight">
         These Terms of Service govern your use of the TaskBloom platform, which connects advertisers with real human users who perform organic engagement tasks. By accessing or using TaskBloom, you agree to these terms.
       </p>
 
@@ -165,9 +166,11 @@ export default function TermsPage() {
         <li>Response time: within 48 hours</li>
       </ul>
 
-      <p className="mt-10 text-sm text-[#64748b] border-t border-[#1e1e2e] pt-6">
+      <div className="section-divider" />
+      <p className="text-sm text-[#64748b]">
         These Terms of Service were last updated on 7 May 2026. We encourage you to review them periodically.
       </p>
+      </div>
     </LegalLayout>
   );
 }

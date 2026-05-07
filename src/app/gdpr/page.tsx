@@ -3,7 +3,8 @@ import LegalLayout from '@/components/LegalLayout';
 export default function GDPRPage() {
   return (
     <LegalLayout title="GDPR Compliance" updated="7 May 2026">
-      <p>
+      <div className="legal-content">
+      <p className="intro-highlight">
         TaskBloom is committed to protecting the privacy and data rights of all users, particularly those within the United Kingdom and European Economic Area. This page outlines your rights under the UK GDPR and EU General Data Protection Regulation and explains how we uphold them.
       </p>
 
@@ -161,9 +162,11 @@ export default function GDPRPage() {
         In the unlikely event of a data breach that poses a risk to your rights and freedoms, we will notify the relevant supervisory authority within 72 hours and, where required, inform affected individuals without undue delay.
       </p>
 
-      <p className="mt-10 text-sm text-[#64748b] border-t border-[#1e1e2e] pt-6">
+      <div className="section-divider" />
+      <p className="text-sm text-[#64748b]">
         This GDPR Compliance page was last updated on 7 May 2026. It reflects our commitment to protecting your privacy and data rights.
       </p>
+      </div>
     </LegalLayout>
   );
 }

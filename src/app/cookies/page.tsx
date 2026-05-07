@@ -3,7 +3,8 @@ import LegalLayout from '@/components/LegalLayout';
 export default function CookiesPage() {
   return (
     <LegalLayout title="Cookie Policy" updated="7 May 2026">
-      <p>
+      <div className="legal-content">
+      <p className="intro-highlight">
         TaskBloom uses cookies and similar tracking technologies to enhance your experience, analyse platform usage, and support our security and fraud detection systems. This policy explains what cookies are, how we use them, and how you can control them.
       </p>
 
@@ -89,9 +90,11 @@ export default function CookiesPage() {
         For questions about our use of cookies, please contact us at privacy@taskbloom.co.uk.
       </p>
 
-      <p className="mt-10 text-sm text-[#64748b] border-t border-[#1e1e2e] pt-6">
+      <div className="section-divider" />
+      <p className="text-sm text-[#64748b]">
         This Cookie Policy was last updated on 7 May 2026.
       </p>
+      </div>
     </LegalLayout>
   );
 }

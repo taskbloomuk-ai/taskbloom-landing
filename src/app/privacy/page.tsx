@@ -3,7 +3,8 @@ import LegalLayout from '@/components/LegalLayout';
 export default function PrivacyPage() {
   return (
     <LegalLayout title="Privacy Policy" updated="7 May 2026">
-      <p>
+      <div className="legal-content">
+      <p className="intro-highlight">
         TaskBloom takes your privacy seriously. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our platform.
       </p>
 
@@ -137,9 +138,11 @@ export default function PrivacyPage() {
         <li>Response time: within 48 hours</li>
       </ul>
 
-      <p className="mt-10 text-sm text-[#64748b] border-t border-[#1e1e2e] pt-6">
+      <div className="section-divider" />
+      <p className="text-sm text-[#64748b]">
         This Privacy Policy was last updated on 7 May 2026.
       </p>
+      </div>
     </LegalLayout>
   );
 }
