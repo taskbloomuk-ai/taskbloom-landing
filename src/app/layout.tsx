@@ -38,6 +38,8 @@ export const metadata: Metadata = {
   },
 };
 
+import ScrollToTop from '@/components/ScrollToTop';
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className="dark scroll-smooth">
@@ -62,6 +64,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className="min-h-screen bg-[#0a0a0f] text-[#f8fafc] font-sans antialiased">
         {children}
+        <ScrollToTop />
       </body>
     </html>
   );
