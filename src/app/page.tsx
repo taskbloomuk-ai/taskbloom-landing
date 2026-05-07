@@ -8,6 +8,7 @@ import WhyAdvertisers from '@/components/WhyAdvertisers';
 import UKFocus from '@/components/UKFocus';
 import Testimonials from '@/components/Testimonials';
 import PricingPreview from '@/components/PricingPreview';
+import FAQ from '@/components/FAQ';
 import FinalCTA from '@/components/FinalCTA';
 import Footer from '@/components/Footer';
 
@@ -24,6 +25,7 @@ export default function Home() {
       <UKFocus />
       <Testimonials />
       <PricingPreview />
+      <FAQ />
       <FinalCTA />
       <Footer />
     </main>

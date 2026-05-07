@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const testimonials = [
@@ -34,11 +34,17 @@ const testimonials = [
 
 export default function Testimonials() {
   const [current, setCurrent] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   useEffect(() => {
-    const timer = setInterval(() => setCurrent((c) => (c + 1) % testimonials.length), 6000);
-    return () => clearInterval(timer);
-  }, []);
+    if (!paused) {
+      intervalRef.current = setInterval(() => setCurrent((c) => (c + 1) % testimonials.length), 6000);
+    }
+    return () => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+    };
+  }, [paused]);
 
   return (
     <section className="relative py-24 sm:py-32">
@@ -55,7 +61,11 @@ export default function Testimonials() {
           </p>
         </motion.div>
 
-        <div className="relative min-h-[280px]">
+        <div
+          className="relative min-h-[280px]"
+          onMouseEnter={() => setPaused(true)}
+          onMouseLeave={() => setPaused(false)}
+        >
           <AnimatePresence mode="wait">
             <motion.div
               key={current}
@@ -86,7 +96,6 @@ export default function Testimonials() {
           </AnimatePresence>
         </div>
 
-        {/* Dots */}
         <div className="flex justify-center gap-2 mt-6">
           {testimonials.map((_, i) => (
             <button
