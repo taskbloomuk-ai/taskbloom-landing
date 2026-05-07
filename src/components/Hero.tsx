@@ -1,17 +1,55 @@
 'use client';
-import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { useState, useEffect, useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
 import dynamic from 'next/dynamic';
 
 const GlobeScene = dynamic(() => import('@/components/globe/GlobeScene'), { ssr: false });
 const FloatingTasks = dynamic(() => import('@/components/globe/FloatingTasks'), { ssr: false });
 
 const stats = [
-  { value: '10K+', label: 'Active Users' },
-  { value: '120+', label: 'Countries' },
-  { value: 'Real', label: 'Human Traffic' },
-  { value: 'UK', label: 'Advertiser Focus' },
+  { value: '10K+', label: 'Active Users', num: 10, suffix: 'K+' },
+  { value: '120+', label: 'Countries', num: 120, suffix: '+' },
+  { value: 'Real', label: 'Human Traffic', num: 0, suffix: '' },
+  { value: 'UK', label: 'Advertiser Focus', num: 0, suffix: '' },
 ];
+
+function AnimatedHeroStat({ stat }: { stat: typeof stats[0] }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true });
+  const [display, setDisplay] = useState(0);
+  const [started, setStarted] = useState(false);
+
+  useEffect(() => {
+    if (!inView || started || stat.num === 0) return;
+    setStarted(true);
+    let startTime: number | null = null;
+    const duration = 2000;
+    function animate(ts: number) {
+      if (!startTime) startTime = ts;
+      const progress = Math.min((ts - startTime) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setDisplay(Math.round(stat.num * eased));
+      if (progress < 1) requestAnimationFrame(animate);
+      else setDisplay(stat.num);
+    }
+    requestAnimationFrame(animate);
+  }, [inView, started, stat.num]);
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 15 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.5 }}
+      className="text-center sm:text-left"
+    >
+      <div className="text-lg font-bold text-white">
+        {stat.num > 0 ? display + stat.suffix : stat.value}
+      </div>
+      <div className="text-xs text-[#64748b]">{stat.label}</div>
+    </motion.div>
+  );
+}
 
 function Particle({ i }: { i: number }) {
   const [style, setStyle] = useState<React.CSSProperties>({});
@@ -95,10 +133,7 @@ export default function Hero() {
             {/* Trust indicators */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
               {stats.map((s) => (
-                <div key={s.label} className="text-center sm:text-left">
-                  <div className="text-lg font-bold text-white">{s.value}</div>
-                  <div className="text-xs text-[#64748b]">{s.label}</div>
-                </div>
+                <AnimatedHeroStat key={s.label} stat={s} />
               ))}
             </div>
           </motion.div>
