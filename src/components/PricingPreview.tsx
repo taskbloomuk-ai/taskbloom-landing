@@ -102,7 +102,7 @@ export default function PricingPreview() {
                 ))}
               </ul>
               <a
-                href="https://app.task-rewards.com"
+                href="https://task-rewards.com"
                 className={`block text-center py-2.5 px-4 rounded-xl text-sm font-semibold transition-all ${
                   plan.featured
                     ? 'bg-gradient-to-r from-[#6366f1] to-[#7c3aed] text-white hover:shadow-lg hover:shadow-[#6366f1]/20'

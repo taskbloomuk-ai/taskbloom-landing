@@ -34,7 +34,7 @@ export default function FinalCTA() {
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <a
-              href="https://app.task-rewards.com"
+              href="https://task-rewards.com"
               className="px-10 py-4 rounded-full text-base font-semibold text-white bg-gradient-to-r from-[#6366f1] to-[#7c3aed] hover:from-[#4f46e5] hover:to-[#6d28d9] transition-all shadow-2xl shadow-[#6366f1]/25 hover:shadow-[#6366f1]/40"
             >
               Start Campaign

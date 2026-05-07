@@ -73,7 +73,7 @@ export default function Hero() {
 
             <div className="flex flex-wrap gap-4 mb-10">
               <a
-                href="https://app.task-rewards.com"
+                href="https://task-rewards.com"
                 className="px-8 py-3.5 rounded-full text-base font-semibold text-white bg-gradient-to-r from-[#6366f1] to-[#7c3aed] hover:from-[#4f46e5] hover:to-[#6d28d9] transition-all shadow-xl shadow-[#6366f1]/25 hover:shadow-[#6366f1]/40"
               >
                 Launch Campaign

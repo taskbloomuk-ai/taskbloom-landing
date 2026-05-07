@@ -46,7 +46,7 @@ export default function Header() {
               </a>
             ))}
             <a
-              href="https://app.task-rewards.com"
+              href="https://task-rewards.com"
               className="ml-4 px-5 py-2 rounded-full text-sm font-semibold text-white bg-gradient-to-r from-[#6366f1] to-[#7c3aed] hover:from-[#4f46e5] hover:to-[#6d28d9] transition-all shadow-lg shadow-[#6366f1]/20"
             >
               Access Portal
@@ -83,7 +83,7 @@ export default function Header() {
                 </a>
               ))}
               <a
-                href="https://app.task-rewards.com"
+                href="https://task-rewards.com"
                 onClick={() => setMobileOpen(false)}
                 className="block text-center px-5 py-2.5 rounded-full text-sm font-semibold text-white bg-gradient-to-r from-[#6366f1] to-[#7c3aed]"
               >
