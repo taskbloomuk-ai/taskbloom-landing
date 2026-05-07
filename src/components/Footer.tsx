@@ -31,10 +31,10 @@ export default function Footer() {
       { label: 'Contact', href: '#' },
     ],
     Legal: [
-      { label: 'Terms of Service', href: '#' },
-      { label: 'Privacy Policy', href: '#' },
-      { label: 'Cookie Policy', href: '#' },
-      { label: 'GDPR', href: '#' },
+      { label: 'Terms of Service', href: '/terms' },
+      { label: 'Privacy Policy', href: '/privacy' },
+      { label: 'Cookie Policy', href: '/cookies' },
+      { label: 'GDPR', href: '/gdpr' },
     ],
   };
 
