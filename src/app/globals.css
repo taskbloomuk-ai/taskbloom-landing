@@ -92,3 +92,9 @@ body {
 }
 .animate-float { animation: float 3s ease-in-out infinite; }
 .animate-pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
+
+@keyframes city-pulse {
+  0%, 100% { opacity: 0.3; box-shadow: 0 0 4px rgba(0,212,255,0.2); }
+  50% { opacity: 1; box-shadow: 0 0 12px rgba(0,212,255,0.6), 0 0 24px rgba(0,212,255,0.2); }
+}
+.animate-city-pulse { animation: city-pulse 2.5s ease-in-out infinite; }

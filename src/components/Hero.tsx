@@ -5,6 +5,7 @@ import dynamic from 'next/dynamic';
 
 const GlobeScene = dynamic(() => import('@/components/globe/GlobeScene'), { ssr: false });
 const FloatingTasks = dynamic(() => import('@/components/globe/FloatingTasks'), { ssr: false });
+import WorldMapBackground from '@/components/WorldMapBackground';
 
 const stats = [
   { value: '10K+', label: 'Active Users', num: 10, suffix: 'K+' },
@@ -70,6 +71,7 @@ export default function Hero() {
     <section className="relative min-h-screen flex items-center overflow-hidden">
       {/* Background layers */}
       <div className="absolute inset-0 bg-gradient-to-br from-[#0a0a0f] via-[#0f0f1a] to-[#0a0a0f]" />
+      <WorldMapBackground />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_20%,rgba(99,102,241,0.08),transparent_60%)]" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_70%_80%,rgba(124,58,237,0.06),transparent_60%)]" />
 
