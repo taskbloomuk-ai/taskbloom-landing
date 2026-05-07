@@ -62,6 +62,8 @@ export default function HowItWorks() {
               initial={{ opacity: 0, y: 40 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.2 * i }}
+              whileHover={{ y: -4 }}
+              whileTap={{ scale: 0.98 }}
               className="group relative p-8 rounded-2xl bg-[#12121a] neon-border"
             >
               <div className="text-4xl font-bold bg-gradient-to-br from-[#6366f1] to-[#7c3aed] bg-clip-text text-transparent mb-4">

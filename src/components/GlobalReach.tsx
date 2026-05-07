@@ -81,6 +81,8 @@ export default function GlobalReach() {
                 initial={{ opacity: 0, x: 20 }}
                 animate={inView ? { opacity: 1, x: 0 } : {}}
                 transition={{ duration: 0.4, delay: 0.1 * i }}
+                whileHover={{ y: -2 }}
+                whileTap={{ scale: 0.98 }}
                 className="p-5 rounded-2xl bg-[#12121a] neon-border"
               >
                 <div className="text-xs text-[#64748b] mb-1">{s.label}</div>

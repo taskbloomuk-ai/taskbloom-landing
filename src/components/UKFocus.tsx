@@ -79,11 +79,11 @@ export default function UKFocus() {
                 { flag: '🇮🇳', name: 'Mumbai', time: '+4.5h' },
                 { flag: '🇦🇺', name: 'Sydney', time: '+9h' },
               ].map((loc) => (
-                <div key={loc.name} className="text-center p-3 rounded-xl bg-[#1a1a2e] neon-border">
+                <motion.div key={loc.name} whileHover={{ y: -2 }} whileTap={{ scale: 0.95 }} className="text-center p-3 rounded-xl bg-[#1a1a2e] neon-border">
                   <div className="text-xl mb-1">{loc.flag}</div>
                   <div className="text-xs font-medium">{loc.name}</div>
                   <div className="text-[10px] text-[#64748b]">{loc.time}</div>
-                </div>
+                </motion.div>
               ))}
             </div>
             <div className="mt-4 text-center text-xs text-[#64748b]">

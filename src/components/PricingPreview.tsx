@@ -72,6 +72,8 @@ export default function PricingPreview() {
               initial={{ opacity: 0, y: 30 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: 0.08 * i }}
+              whileHover={{ y: -4 }}
+              whileTap={{ scale: 0.98 }}
               className={`relative p-6 rounded-2xl bg-[#12121a] transition-all duration-300 ${
                 plan.featured
                   ? 'neon-border-glow scale-[1.02] xl:scale-105'

@@ -1,16 +1,17 @@
 'use client';
 import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
+import { Icons } from '@/lib/icons';
 
 const campaigns = [
-  { title: 'Website Traffic', desc: 'Drive real visitors to your website through organic discovery and browsing tasks.', icon: '🌐', gradient: 'from-[#6366f1] to-[#00d4ff]' },
-  { title: 'YouTube Promotion', desc: 'Increase views, watch time, and engagement on your video content.', icon: '▶️', gradient: 'from-[#e94560] to-[#f59e0b]' },
-  { title: 'App Downloads', desc: 'Boost app installs and user acquisition through real device-based installations.', icon: '📱', gradient: 'from-[#10b981] to-[#00d4ff]' },
-  { title: 'Social Engagement', desc: 'Grow followers, likes, shares, and organic social media presence.', icon: '👍', gradient: 'from-[#7c3aed] to-[#6366f1]' },
-  { title: 'Business Reviews', desc: 'Collect authentic reviews and ratings on Google, Trustpilot, and industry platforms.', icon: '⭐', gradient: 'from-[#f59e0b] to-[#e94560]' },
-  { title: 'Search Visibility', desc: 'Improve organic search presence through natural behavior and engagement signals.', icon: '🔍', gradient: 'from-[#00d4ff] to-[#7c3aed]' },
-  { title: 'Ecommerce Awareness', desc: 'Promote products and stores through targeted shopping and browsing campaigns.', icon: '🛒', gradient: 'from-[#6366f1] to-[#10b981]' },
-  { title: 'Content Promotion', desc: 'Amplify blog posts, articles, and content through genuine readership.', icon: '📝', gradient: 'from-[#7c3aed] to-[#e94560]' },
+  { title: 'Website Traffic', desc: 'Drive real visitors to your website through organic discovery and browsing tasks.', icon: Icons.globe, gradient: 'from-[#6366f1] to-[#00d4ff]' },
+  { title: 'YouTube Promotion', desc: 'Increase views, watch time, and engagement on your video content.', icon: Icons.play, gradient: 'from-[#e94560] to-[#f59e0b]' },
+  { title: 'App Downloads', desc: 'Boost app installs and user acquisition through real device-based installations.', icon: Icons.download, gradient: 'from-[#10b981] to-[#00d4ff]' },
+  { title: 'Social Engagement', desc: 'Grow followers, likes, shares, and organic social media presence.', icon: Icons.thumbsUp, gradient: 'from-[#7c3aed] to-[#6366f1]' },
+  { title: 'Business Reviews', desc: 'Collect authentic reviews and ratings on Google, Trustpilot, and industry platforms.', icon: Icons.star, gradient: 'from-[#f59e0b] to-[#e94560]' },
+  { title: 'Search Visibility', desc: 'Improve organic search presence through natural behavior and engagement signals.', icon: Icons.search, gradient: 'from-[#00d4ff] to-[#7c3aed]' },
+  { title: 'Ecommerce Awareness', desc: 'Promote products and stores through targeted shopping and browsing campaigns.', icon: Icons.cart, gradient: 'from-[#6366f1] to-[#10b981]' },
+  { title: 'Content Promotion', desc: 'Amplify blog posts, articles, and content through genuine readership.', icon: Icons.edit, gradient: 'from-[#7c3aed] to-[#e94560]' },
 ];
 
 export default function CampaignTypes() {
@@ -42,11 +43,12 @@ export default function CampaignTypes() {
               transition={{ duration: 0.4, delay: 0.05 * i }}
               className="group relative p-5 md:p-6 rounded-2xl bg-[#12121a] neon-border cursor-default"
               whileHover={{ y: -4, scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
             >
-              <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${c.gradient} flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform`}>
+              <div className={`w-10 h-10 md:w-12 md:h-12 rounded-xl bg-gradient-to-br ${c.gradient} flex items-center justify-center text-white mb-3 md:mb-4 group-hover:scale-110 transition-transform`}>
                 {c.icon}
               </div>
-              <h3 className="text-base font-semibold mb-2">{c.title}</h3>
+              <h3 className="text-sm md:text-base font-semibold mb-1 md:mb-2">{c.title}</h3>
               <p className="text-xs text-[#64748b] leading-relaxed">{c.desc}</p>
             </motion.div>
           ))}

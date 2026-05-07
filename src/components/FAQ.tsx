@@ -54,7 +54,9 @@ export default function FAQ() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.3, delay: 0.04 * i }}
-              className="rounded-2xl border border-[#1e1e2e] bg-[#12121a] overflow-hidden"
+              whileHover={{ y: -2 }}
+              whileTap={{ scale: 0.99 }}
+              className="rounded-2xl bg-[#12121a] neon-border overflow-hidden"
             >
               <button
                 onClick={() => setOpenIndex(openIndex === i ? null : i)}

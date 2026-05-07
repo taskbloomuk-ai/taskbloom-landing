@@ -46,10 +46,11 @@ export default function Hero() {
         ))}
       </div>
 
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Left: Messaging */}
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 md:pt-24 pb-16">
+        <div className="flex flex-col lg:grid lg:grid-cols-5 gap-8 lg:gap-12 items-center">
+          {/* Left: Messaging — 3/5 on desktop */}
           <motion.div
+            className="lg:col-span-3"
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: 'easeOut' }}
@@ -97,15 +98,15 @@ export default function Hero() {
             </div>
           </motion.div>
 
-          {/* Right: Globe */}
+          {/* Right: Globe — 2/5 on desktop */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, delay: 0.3, ease: 'easeOut' }}
-            className="relative"
+            className="lg:col-span-2 relative w-full max-w-sm md:max-w-md lg:max-w-none mx-auto"
           >
-            <div className="relative w-full aspect-square max-w-lg mx-auto">
-              <div className="absolute inset-0 bg-[radial-gradient(ellipse_center,rgba(99,102,241,0.1),transparent_70%)] rounded-full" />
+            <div className="relative w-full aspect-square max-w-xs sm:max-w-sm md:max-w-md lg:max-w-full mx-auto">
+              <div className="absolute inset-0 bg-[radial-gradient(ellipse_center,rgba(99,102,241,0.12),transparent_70%)] rounded-full" />
               <GlobeScene />
               <FloatingTasks />
             </div>
