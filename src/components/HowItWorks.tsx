@@ -62,7 +62,7 @@ export default function HowItWorks() {
               initial={{ opacity: 0, y: 40 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.2 * i }}
-              className="group relative p-8 rounded-2xl border border-[#1e1e2e] bg-[#12121a] hover:border-[#6366f1]/40 transition-all duration-300 hover:shadow-lg hover:shadow-[#6366f1]/5"
+              className="group relative p-8 rounded-2xl bg-[#12121a] neon-border"
             >
               <div className="text-4xl font-bold bg-gradient-to-br from-[#6366f1] to-[#7c3aed] bg-clip-text text-transparent mb-4">
                 {step.num}

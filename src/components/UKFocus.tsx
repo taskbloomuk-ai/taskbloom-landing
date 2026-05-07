@@ -63,7 +63,7 @@ export default function UKFocus() {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={inView ? { opacity: 1, scale: 1 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="relative p-8 rounded-2xl border border-[#1e1e2e] bg-[#12121a] overflow-hidden"
+            className="relative p-8 rounded-2xl bg-[#12121a] neon-border overflow-hidden"
           >
             <div className="text-center mb-6">
               <span className="text-4xl">🇬🇧</span>
@@ -79,7 +79,7 @@ export default function UKFocus() {
                 { flag: '🇮🇳', name: 'Mumbai', time: '+4.5h' },
                 { flag: '🇦🇺', name: 'Sydney', time: '+9h' },
               ].map((loc) => (
-                <div key={loc.name} className="text-center p-3 rounded-xl bg-[#1a1a2e] border border-[#2a2a3e]">
+                <div key={loc.name} className="text-center p-3 rounded-xl bg-[#1a1a2e] neon-border">
                   <div className="text-xl mb-1">{loc.flag}</div>
                   <div className="text-xs font-medium">{loc.name}</div>
                   <div className="text-[10px] text-[#64748b]">{loc.time}</div>

@@ -1,7 +1,18 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
 import Globe from 'globe.gl';
-import { ukCities, globalCities } from '@/lib/cities';
+import { ukCities, globalCities, cities as allCitiesData } from '@/lib/cities';
+
+// Multi-color beam palette
+const beamColors = [
+  ['rgba(99,102,241,0.02)', '#6366f1'], // indigo → Americas
+  ['rgba(16,185,129,0.02)', '#10b981'], // green → MEA
+  ['rgba(124,58,237,0.02)', '#7c3aed'], // purple → Asia
+  ['rgba(0,212,255,0.02)', '#00d4ff'], // cyan → Pacific
+  ['rgba(245,158,11,0.02)', '#f59e0b'], // amber → Europe
+];
+
+function getBeamColor(idx: number) { return beamColors[idx % beamColors.length]; }
 
 export default function GlobeScene() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -10,93 +21,102 @@ export default function GlobeScene() {
   const [hasWebGL, setHasWebGL] = useState(true);
 
   useEffect(() => {
-    // WebGL check
     try {
       const canvas = document.createElement('canvas');
-      const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+      const gl = canvas.getContext('webgl') || (canvas.getContext('experimental-webgl') as any);
       if (!gl) { setHasWebGL(false); return; }
     } catch { setHasWebGL(false); return; }
 
     if (!containerRef.current || globeRef.current) return;
 
     const container = containerRef.current;
-    const width = container.clientWidth;
-    const height = container.clientHeight;
+    const w = container.clientWidth;
+    const h = container.clientHeight;
 
-    // Load textures with caching
-    const img = new Image();
-    img.crossOrigin = 'anonymous';
-    img.onload = () => {
-      if (!containerRef.current) return;
-      try {
-        const globe = new Globe(container, { animateIn: true })
-          .globeImageUrl('//unpkg.com/three-globe/example/img/earth-dark.jpg')
-          .backgroundImageUrl('//unpkg.com/three-globe/example/img/night-sky.png')
-          .width(width)
-          .height(height)
-          .pointAltitude('size')
-          .pointColor(() => '#00d4ff')
-          .pointRadius(0.4)
-          .pointsMerge(true)
-          .arcColor(() => ['rgba(99,102,241,0.01)', '#6366f1'])
-          .arcDashLength(0.4)
-          .arcDashGap(0.2)
-          .arcDashAnimateTime(3000)
-          .arcStroke(0.3)
-          .ringColor(() => '#7c3aed')
-          .ringMaxRadius(4)
-          .ringPropagationSpeed(2)
-          .labelsData([]);
+    const globe = new Globe(container)
+      .globeImageUrl('//unpkg.com/three-globe/example/img/earth-dark.jpg')
+      .backgroundImageUrl('//unpkg.com/three-globe/example/img/night-sky.png')
+      .width(w).height(h)
+      // Points
+      .pointAltitude('size')
+      .pointColor(() => '#00d4ff')
+      .pointRadius(0.5)
+      .pointsMerge(true)
+      // Arcs — solid communication beams with glow
+      .arcColor((d: any) => getBeamColor(d.idx ?? 0))
+      .arcDashLength(1)
+      .arcDashGap(0)
+      .arcDashAnimateTime(0)
+      .arcStroke(0.6)
+      .arcCurveResolution(64)
+      .arcCircularResolution(6)
+      // Rings
+      .ringColor(() => '#7c3aed')
+      .ringMaxRadius(5)
+      .ringPropagationSpeed(4)
+      // Labels
+      .labelColor(() => 'rgba(255,255,255,0.7)')
+      .labelDotRadius(0.8)
+      .labelSize((d: any) => d.pulse ? 1.2 : 0.9)
+      .labelText('name')
+      .labelAltitude(0.02)
+      .labelResolution(12)
+      .labelsData([]);
 
-        const controls = globe.controls();
-        if (controls) {
-          controls.autoRotate = true;
-          controls.autoRotateSpeed = 0.6;
-          controls.enableZoom = false;
-        }
+    const controls = globe.controls();
+    if (controls) {
+      controls.autoRotate = true;
+      controls.autoRotateSpeed = 0.5;
+      controls.enableZoom = false;
+    }
 
-        const allCities = [...ukCities, ...globalCities];
-        globe.pointsData(allCities.map((c) => ({
-          lat: c.lat, lng: c.lng,
-          size: c.pulse ? 0.5 : 0.25,
-          color: c.pulse ? '#00d4ff' : '#7c3aed',
-        })));
+    // ── City Points ──
+    globe.pointsData(allCitiesData.map((c) => ({
+      lat: c.lat, lng: c.lng,
+      size: c.pulse ? 0.6 : 0.35,
+      color: c.pulse ? '#00d4ff' : '#7c3aed',
+    })));
 
-        // Reduce arcs: connect each UK city to 5 nearest global cities
-        const topGlobal = globalCities.slice(0, 5);
-        const arcs: { startLat: number; startLng: number; endLat: number; endLng: number }[] = [];
-        ukCities.forEach((src) => {
-          topGlobal.forEach((dst) => {
-            arcs.push({ startLat: src.lat, startLng: src.lng, endLat: dst.lat, endLng: dst.lng });
-          });
-        });
-        globe.arcsData(arcs);
+    // ── Arc Beams (UK→top 6 global) ──
+    const topGlobal = globalCities.slice(0, 6);
+    const arcs: { startLat: number; startLng: number; endLat: number; endLng: number; idx: number }[] = [];
+    ukCities.forEach((src) => {
+      topGlobal.forEach((dst, i) => {
+        arcs.push({ startLat: src.lat, startLng: src.lng, endLat: dst.lat, endLng: dst.lng, idx: i });
+      });
+    });
+    globe.arcsData(arcs);
 
-        globe.ringsData(ukCities.map((c) => ({
-          lat: c.lat, lng: c.lng, maxR: 5, propagationSpeed: 3, repeatPeriod: 2000,
-        })));
+    // ── Pulsing Rings on ALL cities ──
+    globe.ringsData(allCitiesData.map((c) => ({
+      lat: c.lat, lng: c.lng,
+      maxR: c.pulse ? 5 : 2.5,
+      propagationSpeed: c.pulse ? 3 : 2,
+      repeatPeriod: c.pulse ? 2000 : 3000,
+    })));
 
-        globeRef.current = globe;
-        setLoaded(true);
+    // ── Floating City Labels ──
+    globe.labelsData(allCitiesData.map((c) => ({
+      lat: c.lat, lng: c.lng,
+      name: `${c.flag || ''} ${c.name}`,
+      size: c.pulse ? 1.2 : 0.9,
+      color: c.pulse ? '#00d4ff' : '#94a3b8',
+      pulse: c.pulse,
+    })));
 
-        const handleResize = () => {
-          if (container) {
-            const w = container.clientWidth;
-            const h = container.clientHeight;
-            globe.width(w).height(h);
-          }
-        };
-        window.addEventListener('resize', handleResize);
+    globeRef.current = globe;
+    setLoaded(true);
 
-        return () => {
-          window.removeEventListener('resize', handleResize);
-          if (container) container.innerHTML = '';
-          globeRef.current = null;
-        };
-      } catch { setHasWebGL(false); }
+    const handleResize = () => {
+      if (container) { globe.width(container.clientWidth).height(container.clientHeight); }
     };
-    img.onerror = () => setHasWebGL(false);
-    img.src = '//unpkg.com/three-globe/example/img/earth-dark.jpg';
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      if (container) container.innerHTML = '';
+      globeRef.current = null;
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -114,7 +134,6 @@ export default function GlobeScene() {
 
   return (
     <div className="relative w-full h-full min-h-[400px] md:min-h-[500px]">
-      {/* Loading skeleton */}
       {!loaded && (
         <div className="absolute inset-0 flex items-center justify-center z-10 rounded-2xl bg-[#12121a] border border-[#1e1e2e]">
           <div className="text-center">
@@ -123,6 +142,8 @@ export default function GlobeScene() {
           </div>
         </div>
       )}
+      {/* Neon glow behind globe */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_center,rgba(99,102,241,0.12),transparent_60%)] rounded-full pointer-events-none" />
       <div ref={containerRef} className={`w-full h-full min-h-[400px] md:min-h-[500px] ${loaded ? '' : 'opacity-0'}`} />
     </div>
   );

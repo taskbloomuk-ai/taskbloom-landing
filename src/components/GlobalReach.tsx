@@ -37,7 +37,7 @@ export default function GlobalReach() {
 
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Regions bar chart */}
-          <div className="lg:col-span-2 p-6 sm:p-8 rounded-2xl border border-[#1e1e2e] bg-[#12121a]">
+          <div className="lg:col-span-2 p-6 sm:p-8 rounded-2xl bg-[#12121a] neon-border">
             <div className="flex items-center justify-between mb-6">
               <h3 className="text-lg font-semibold">Active Users by Region</h3>
               <span className="text-xs text-[#64748b]">{regions.reduce((a, b) => a + b.users, 0).toLocaleString()} total</span>
@@ -52,7 +52,7 @@ export default function GlobalReach() {
                   className="flex items-center gap-3"
                 >
                   <span className="text-lg w-8">{r.flag}</span>
-                  <span className="text-sm text-[#94a3b8] w-28 shrink-0">{r.name}</span>
+                  <span className="text-sm text-[#94a3b8] min-w-0 truncate" style={{maxWidth:'120px'}}>{r.name}</span>
                   <div className="flex-1 h-6 rounded-full bg-[#1a1a2e] overflow-hidden">
                     <motion.div
                       initial={{ width: 0 }}
@@ -81,7 +81,7 @@ export default function GlobalReach() {
                 initial={{ opacity: 0, x: 20 }}
                 animate={inView ? { opacity: 1, x: 0 } : {}}
                 transition={{ duration: 0.4, delay: 0.1 * i }}
-                className="p-5 rounded-2xl border border-[#1e1e2e] bg-[#12121a]"
+                className="p-5 rounded-2xl bg-[#12121a] neon-border"
               >
                 <div className="text-xs text-[#64748b] mb-1">{s.label}</div>
                 <div className="text-xl font-bold text-white mb-1">{s.value}</div>

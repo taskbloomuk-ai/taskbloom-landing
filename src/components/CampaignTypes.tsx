@@ -33,14 +33,14 @@ export default function CampaignTypes() {
           </p>
         </motion.div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
           {campaigns.map((c, i) => (
             <motion.div
               key={c.title}
               initial={{ opacity: 0, y: 20 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.4, delay: 0.05 * i }}
-              className="group relative p-6 rounded-2xl border border-[#1e1e2e] bg-[#12121a] hover:border-[#2a2a3e] transition-all duration-300 cursor-default"
+              className="group relative p-5 md:p-6 rounded-2xl bg-[#12121a] neon-border cursor-default"
               whileHover={{ y: -4, scale: 1.02 }}
             >
               <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${c.gradient} flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform`}>

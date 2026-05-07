@@ -25,7 +25,7 @@ export default function FloatingTasks() {
   }, [counter]);
 
   return (
-    <div className="absolute bottom-4 left-4 right-4 md:left-auto md:right-4 md:w-72 space-y-2 pointer-events-none z-10">
+    <div className="absolute bottom-2 left-2 right-2 sm:bottom-4 sm:left-auto sm:right-4 sm:w-72 space-y-2 pointer-events-none z-10">
       <AnimatePresence mode="popLayout">
         {items.map((item) => (
           <motion.div

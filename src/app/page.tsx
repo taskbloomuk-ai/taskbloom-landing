@@ -18,8 +18,10 @@ export default function Home() {
       <Header />
       <Hero />
       <LiveStatsBar />
+      <div className="section-divider" />
       <HowItWorks />
       <CampaignTypes />
+      <div className="section-divider" />
       <GlobalReach />
       <WhyAdvertisers />
       <UKFocus />

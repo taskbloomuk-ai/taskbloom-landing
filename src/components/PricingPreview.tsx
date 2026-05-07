@@ -72,10 +72,10 @@ export default function PricingPreview() {
               initial={{ opacity: 0, y: 30 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: 0.08 * i }}
-              className={`relative p-6 rounded-2xl border transition-all duration-300 ${
+              className={`relative p-6 rounded-2xl bg-[#12121a] transition-all duration-300 ${
                 plan.featured
-                  ? 'border-[#6366f1]/40 bg-[#12121a] shadow-lg shadow-[#6366f1]/10 scale-[1.02] lg:scale-105'
-                  : 'border-[#1e1e2e] bg-[#12121a] hover:border-[#2a2a3e]'
+                  ? 'neon-border-glow scale-[1.02] xl:scale-105'
+                  : 'neon-border'
               }`}
             >
               {plan.featured && (

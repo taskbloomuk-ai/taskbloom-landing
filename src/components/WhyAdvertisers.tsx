@@ -33,7 +33,7 @@ export default function WhyAdvertisers() {
           </p>
         </motion.div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
           {features.map((f, i) => (
             <motion.div
               key={f.title}
@@ -41,7 +41,7 @@ export default function WhyAdvertisers() {
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.4, delay: 0.04 * i }}
               whileHover={{ y: -4, scale: 1.02 }}
-              className="group p-6 rounded-2xl border border-[#1e1e2e] bg-[#12121a] hover:border-[#6366f1]/40 hover:shadow-lg hover:shadow-[#6366f1]/5 transition-all duration-300"
+              className="group p-5 md:p-6 rounded-2xl bg-[#12121a] neon-border"
             >
               <span className="text-2xl mb-3 block">{f.icon}</span>
               <h3 className="text-sm font-semibold mb-2">{f.title}</h3>
