@@ -64,13 +64,15 @@ export default function HowItWorks() {
               transition={{ duration: 0.6, delay: 0.2 * i }}
               whileHover={{ y: -4 }}
               whileTap={{ scale: 0.98 }}
-              className="group relative p-8 rounded-2xl bg-[#12121a] neon-border"
+              className="group relative p-8 rounded-2xl bg-[#12121a] neon-border-glow"
             >
-              <div className="text-4xl font-bold bg-gradient-to-br from-[#6366f1] to-[#7c3aed] bg-clip-text text-transparent mb-4">
-                {step.num}
-              </div>
-              <div className="w-12 h-12 rounded-xl bg-[#6366f1]/10 flex items-center justify-center text-[#6366f1] mb-4 group-hover:scale-110 transition-transform">
-                {step.icon}
+              <div className="flex items-start justify-between mb-6">
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#6366f1] to-[#7c3aed] flex items-center justify-center text-white group-hover:scale-110 transition-transform">
+                  {step.icon}
+                </div>
+                <div className="text-4xl font-bold bg-gradient-to-br from-[#6366f1] to-[#7c3aed] bg-clip-text text-transparent">
+                  {step.num}
+                </div>
               </div>
               <h3 className="text-lg font-semibold mb-2">{step.title}</h3>
               <p className="text-sm text-[#64748b] leading-relaxed">{step.desc}</p>

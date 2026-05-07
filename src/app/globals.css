@@ -46,12 +46,12 @@
 }
 
 @keyframes neon-pulse-base {
-  0%, 100% { box-shadow: 0 0 4px rgba(99,102,241,0.02); }
-  50% { box-shadow: 0 0 12px rgba(99,102,241,0.06); }
+  0%, 100% { box-shadow: 0 0 8px rgba(99,102,241,0.05), 0 0 16px rgba(99,102,241,0.02); }
+  50% { box-shadow: 0 0 24px rgba(99,102,241,0.12), 0 0 48px rgba(99,102,241,0.05); }
 }
 @keyframes neon-pulse-strong {
-  0%, 100% { box-shadow: 0 0 10px rgba(99,102,241,0.08); }
-  50% { box-shadow: 0 0 25px rgba(99,102,241,0.15); }
+  0%, 100% { box-shadow: 0 0 15px rgba(99,102,241,0.1), 0 0 30px rgba(99,102,241,0.05); }
+  50% { box-shadow: 0 0 35px rgba(99,102,241,0.2), 0 0 70px rgba(99,102,241,0.08); }
 }
 
 /* Button neon glow */
