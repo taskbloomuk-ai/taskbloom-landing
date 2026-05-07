@@ -1,4 +1,5 @@
 'use client';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import dynamic from 'next/dynamic';
 
@@ -11,6 +12,20 @@ const stats = [
   { value: 'Real', label: 'Human Traffic' },
   { value: 'UK', label: 'Advertiser Focus' },
 ];
+
+function Particle({ i }: { i: number }) {
+  const [style, setStyle] = useState<React.CSSProperties>({});
+  useEffect(() => {
+    setStyle({
+      left: `${Math.random() * 100}%`,
+      top: `${Math.random() * 100}%`,
+      animationDelay: `${Math.random() * 5}s`,
+      animationDuration: `${3 + Math.random() * 4}s`,
+      opacity: 0.3 + Math.random() * 0.4,
+    });
+  }, []);
+  return <div className="absolute w-1 h-1 bg-[#6366f1]/30 rounded-full animate-float" style={style} />;
+}
 
 export default function Hero() {
   return (
@@ -29,20 +44,10 @@ export default function Hero() {
         }}
       />
 
-      {/* Particles */}
+      {/* Particles — client-only to avoid hydration mismatch */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {Array.from({ length: 30 }).map((_, i) => (
-          <div
-            key={i}
-            className="absolute w-1 h-1 bg-[#6366f1]/30 rounded-full animate-float"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 5}s`,
-              animationDuration: `${3 + Math.random() * 4}s`,
-              opacity: 0.3 + Math.random() * 0.4,
-            }}
-          />
+          <Particle key={i} i={i} />
         ))}
       </div>
 
