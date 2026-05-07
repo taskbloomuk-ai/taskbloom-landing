@@ -1,5 +1,5 @@
 'use client';
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
 
 const stats = [
@@ -12,42 +12,54 @@ const stats = [
 function AnimatedCounter({ stat }: { stat: typeof stats[0] }) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true });
+  const [displayValue, setDisplayValue] = useState(0);
+  const [started, setStarted] = useState(false);
+
+  useEffect(() => {
+    if (!inView || started) return;
+    setStarted(true);
+
+    let startTime: number | null = null;
+    const duration = 2000; // 2 seconds
+    const from = 0;
+    const to = stat.value;
+
+    function animate(timestamp: number) {
+      if (!startTime) startTime = timestamp;
+      const elapsed = timestamp - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      // Ease out cubic
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const current = from + (to - from) * eased;
+      setDisplayValue(current);
+
+      if (progress < 1) {
+        requestAnimationFrame(animate);
+      } else {
+        setDisplayValue(to);
+      }
+    }
+
+    requestAnimationFrame(animate);
+  }, [inView, started, stat.value]);
 
   return (
-    <div ref={ref} className="text-center">
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 20 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.5 }}
+      className="text-center"
+    >
       <div className="text-2xl sm:text-3xl font-bold text-white">
         {stat.prefix || ''}
-        <motion.span
-          initial={{ opacity: 0 }}
-          animate={inView ? { opacity: 1 } : {}}
-        >
-          {inView ? (
-            <motion.span
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5 }}
-            >
-              <CountUp from={0} to={stat.value} duration={2} decimals={stat.decimals} />
-            </motion.span>
-          ) : (
-            <span>0</span>
-          )}
+        <span>
+          {displayValue.toFixed(stat.decimals)}
           {stat.suffix}
-        </motion.span>
+        </span>
       </div>
       <div className="text-xs sm:text-sm text-[#64748b] mt-1">{stat.label}</div>
-    </div>
-  );
-}
-
-function CountUp({ from, to, duration, decimals }: { from: number; to: number; duration: number; decimals: number }) {
-  const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true });
-
-  return (
-    <span ref={ref}>
-      {inView ? to.toFixed(decimals) : from.toFixed(decimals)}
-    </span>
+    </motion.div>
   );
 }
 
