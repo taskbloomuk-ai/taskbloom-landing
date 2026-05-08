@@ -105,6 +105,19 @@ export default function Hero() {
               Global Human Engagement Network
             </div>
 
+            <a
+              href="https://docs.taskbloom.co.uk"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-5 py-2 rounded-full text-sm font-medium text-white bg-gradient-to-r from-[#6366f1]/20 to-[#00d4ff]/20 border border-[#6366f1]/30 hover:from-[#6366f1]/30 hover:to-[#00d4ff]/30 hover:border-[#6366f1]/50 transition-all mb-5 shadow-sm"
+            >
+              <span className="text-base">📚</span>
+              <span>Explore Guides</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M7 17l9.2-9.2M17 17V7H7" />
+              </svg>
+            </a>
+
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight tracking-tight mb-6">
               Reach Real Audiences{' '}
               <span className="bg-gradient-to-r from-[#6366f1] via-[#7c3aed] to-[#00d4ff] bg-clip-text text-transparent">
