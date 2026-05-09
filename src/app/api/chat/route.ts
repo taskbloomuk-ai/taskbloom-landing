@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server';
 
 const FAQ_MAP: { keyword: string; answer: string }[] = [
   { keyword: 'how to withdraw', answer: 'To withdraw your earnings:\n 1) Go to Wallet in your dashboard\n 2) Click "Withdraw"\n 3) Minimum withdrawal is $10\n 4) A 2.9% + $0.30 fee applies\n 5) Choose payment method\n 6) Confirm\n\nPayouts process within 24-48 hours after a 72-hour hold period.' },
+  { keyword: 'how to register', answer: 'To register:\n 1) Go to the Register page\n 2) Enter name, email, password (min 8 chars)\n 3) Enter a valid voucher code (required)\n 4) Add referral code if you have one (optional)\n 5) Click "Create Account"\n\nA voucher code is required to register. After registering you\'ll be redirected to your dashboard.' },
+  { keyword: 'voucher code', answer: 'A voucher code is required to register on TaskBloom. You cannot register without one. Purchase from a reseller or use a provided code. Voucher codes activate your package (e.g. Bronze, Silver, Gold) and unlock your account.' },
   { keyword: 'minimum withdrawal', answer: 'Minimum payout: $10\nPayout fee: 2.9% + $0.30\nHold period: 72 hours\nProcessing: 24-48 hours after hold' },
   { keyword: 'task rejected', answer: 'Tasks can be rejected for:\n- Incomplete steps\n- Suspicious activity\n- VPN/proxy detection\n- Policy violations\n\nNew users: 5 tasks/day limit.\nMinimum task time: 30 seconds.' },
   { keyword: 'referral bonus', answer: 'Referral commission system:\n\nLevel 1 (direct): 5% of referral earnings\nLevel 2: 3%\nLevel 3: 1%\n\nUp to 3 referral levels.' },
