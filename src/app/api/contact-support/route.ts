@@ -37,6 +37,16 @@ function esc(s: string): string {
   return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 
+export async function GET() {
+  const apiKey = process.env.TASKBLOOM_BREVO_API_KEY;
+  const geminiKey = process.env.GEMINI_API_KEY;
+  return NextResponse.json({
+    brevo_configured: !!apiKey,
+    brevo_prefix: apiKey ? apiKey.substring(0, 8) + '...' : 'none',
+    gemini_configured: !!geminiKey,
+  });
+}
+
 export async function POST(request: Request) {
   try {
     const body = await request.json();
