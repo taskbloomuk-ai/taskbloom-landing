@@ -106,7 +106,7 @@ interface ChatMessage {
   source?: 'exact' | 'fuzzy' | 'ai' | 'contact';
 }
 
-function ContactForm({ onSend }: { onSend: (data: { email: string; whatsapp: string; telegram: string; message: string }) => void }) {
+function ContactForm({ onDone }: { onDone: () => void }) {
   const [email, setEmail] = useState('');
   const [whatsapp, setWhatsapp] = useState('');
   const [telegram, setTelegram] = useState('');
@@ -127,7 +127,7 @@ function ContactForm({ onSend }: { onSend: (data: { email: string; whatsapp: str
       });
       if (!res.ok) throw new Error('Failed');
       setSent(true);
-      onSend({ email: email.trim(), whatsapp: whatsapp.trim(), telegram: telegram.trim(), message: message.trim() });
+      setTimeout(() => onDone(), 3000);
     } catch {
       setError('Could not send. Please email support@taskbloom.co.uk directly with your details.');
     }
@@ -138,7 +138,7 @@ function ContactForm({ onSend }: { onSend: (data: { email: string; whatsapp: str
     return (
       <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="chat-msg bot" style={{ maxWidth: '95%', padding: '16px', background: 'linear-gradient(135deg, #065f46 0%, #047857 100%)' }}>
         <div style={{ color: '#a7f3d0', fontWeight: 600, marginBottom: 4 }}>✅ Sent!</div>
-        <div style={{ color: '#d1fae5', fontSize: 13 }}>Our team will reach out within 24 hours. Please check your email (and spam folder).</div>
+        <div style={{ color: '#d1fae5', fontSize: 13 }}>Our team will reach out within 24 hours. Check your email (and spam folder).</div>
       </motion.div>
     );
   }
@@ -264,7 +264,7 @@ export default function ChatWidget() {
                   </div>
                 </div>
               ))}
-              {showContact && <ContactForm onSend={handleContactDone} />}
+              {showContact && <ContactForm onDone={handleContactDone} />}
               {loading && !showContact && (
                 <div className="typing-dots"><span /><span /><span /></div>
               )}
