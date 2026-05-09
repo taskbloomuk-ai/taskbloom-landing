@@ -1,20 +1,20 @@
 import { NextResponse } from 'next/server';
 
 const FAQ_MAP: { keyword: string; answer: string }[] = [
-  { keyword: 'how to withdraw', answer: 'Minimum withdrawal is $10. Fees are 2.9% + $0.30 per payout. Withdrawals are held for 72 hours for fraud prevention, then processed within 24-48 hours. Go to Wallet > Withdraw to request.' },
-  { keyword: 'minimum withdrawal', answer: 'The minimum payout amount is $10. A payout fee of 2.9% + $0.30 applies. Withdrawals go through a 72-hour hold period before processing.' },
-  { keyword: 'task rejected', answer: 'Tasks are rejected if incomplete, suspicious activity is detected, or VPN/proxy is used. New users are limited to 5 tasks/day. Minimum task time is 30 seconds.' },
-  { keyword: 'referral bonus', answer: 'Referral commissions: Level 1 (direct): 5%, Level 2: 3%, Level 3: 1%. Up to 3 referral levels. Commissions are paid on your referral\'s task earnings.' },
-  { keyword: 'how to earn', answer: 'Complete micro-tasks to earn $0.50 per task baseline. New users: 5 tasks/day, max 50 tasks/day. Browse available tasks in your dashboard.' },
-  { keyword: 'payout fee', answer: 'Payout fees are 2.9% + $0.30 per withdrawal. Example: withdrawing $10 costs $0.59 in fees.' },
-  { keyword: 'registration fee', answer: 'There is a one-time $1.00 registration fee to create an account. This helps prevent fraud.' },
-  { keyword: 'forgot password', answer: 'Go to the Login page, click "Forgot Password", enter your email, and check your inbox for the reset link.' },
-  { keyword: 'what is taskbloom', answer: 'TaskBloom connects advertisers with real users across 120+ countries. Users earn $0.50/task completing micro-tasks. Advertisers pay $1.00/task for real human engagement.' },
-  { keyword: 'support', answer: 'Contact us at support@taskbloom.co.uk or visit the Contact page. We respond within 24 hours on business days.' },
-  { keyword: 'pricing', answer: 'Campaigns start from £99 (Starter plan, up to 500 tasks). Advertisers pay $1.00/task, users earn $0.50/task. Visit the Pricing page for full details.' },
-  { keyword: 'advertiser', answer: 'Advertisers can launch campaigns targeting 120+ countries. Pay $1.00/task, users earn $0.50/task. Create your first campaign from the Advertiser dashboard.' },
-  { keyword: 'age requirement', answer: 'You must be at least 18 years old to use TaskBloom. This applies to all users globally.' },
-  { keyword: 'fraud detection', answer: 'Fraud detection monitors: device fingerprints (max 3 per campaign), IP addresses (max 5), minimum task time (30s), and activity patterns.' },
+  { keyword: 'how to withdraw', answer: 'To withdraw your earnings:\n 1) Go to Wallet in your dashboard\n 2) Click "Withdraw"\n 3) Minimum withdrawal is $10\n 4) A 2.9% + $0.30 fee applies\n 5) Choose payment method\n 6) Confirm\n\nPayouts process within 24-48 hours after a 72-hour hold period.' },
+  { keyword: 'minimum withdrawal', answer: 'Minimum payout: $10\nPayout fee: 2.9% + $0.30\nHold period: 72 hours\nProcessing: 24-48 hours after hold' },
+  { keyword: 'task rejected', answer: 'Tasks can be rejected for:\n- Incomplete steps\n- Suspicious activity\n- VPN/proxy detection\n- Policy violations\n\nNew users: 5 tasks/day limit.\nMinimum task time: 30 seconds.' },
+  { keyword: 'referral bonus', answer: 'Referral commission system:\n\nLevel 1 (direct): 5% of referral earnings\nLevel 2: 3%\nLevel 3: 1%\n\nUp to 3 referral levels.' },
+  { keyword: 'how to earn', answer: 'Complete micro-tasks to earn $0.50 per task.\n\nTask types: sign-ups, surveys, app downloads, video watches, link clicks\nNew users: 5 tasks/day\nMax limit: 50 tasks/day' },
+  { keyword: 'payout fee', answer: 'Payout fee: 2.9% + $0.30 per withdrawal.\n\nExample: Withdrawing $10 = $0.59 fee, you receive $9.41.' },
+  { keyword: 'registration fee', answer: 'One-time registration fee: $1.00\n\nPurpose: Verifies genuine users and prevents fraud.' },
+  { keyword: 'forgot password', answer: 'To reset your password:\n 1) Go to the Login page\n 2) Click "Forgot Password"\n 3) Enter your email\n 4) Check inbox for reset link\n 5) Create new password (min 8 chars)' },
+  { keyword: 'what is taskbloom', answer: 'TaskBloom connects advertisers with real users across 120+ countries.\n\nUsers: Earn $0.50/task completing micro-tasks\nAdvertisers: Pay $1.00/task for real human engagement' },
+  { keyword: 'support', answer: 'Contact TaskBloom support:\n\nEmail: support@taskbloom.co.uk\nContact form: taskbloom.co.uk/contact\n\nResponse time: Within 24 hours on business days.' },
+  { keyword: 'pricing', answer: 'Campaign pricing:\n\nStarter plan: £99 (up to 500 tasks)\nAdvertiser cost: $1.00/task\nUser earning: $0.50/task\n\nSet daily caps, pause anytime.' },
+  { keyword: 'advertiser', answer: 'Advertiser benefits:\n- Target 120+ countries\n- Real human engagement\n- Pay $1.00/task, users earn $0.50/task\n- 8 campaign types\n\nCreate your first campaign from the Advertiser dashboard.' },
+  { keyword: 'age requirement', answer: 'You must be at least 18 years old to use TaskBloom.\n\nThis applies to all users globally.' },
+  { keyword: 'fraud detection', answer: 'Fraud detection monitors:\n- Device fingerprints (max 3 per campaign)\n- IP addresses (max 5 per campaign)\n- Minimum task time (30 seconds)\n- Screenshot size checks (10KB-5MB)\n- Activity pattern analysis' },
 ];
 
 function fuzzyScore(msg: string, keyword: string): number {
