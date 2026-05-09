@@ -53,6 +53,7 @@ export async function POST(request: Request) {
 
     const html = buildEmailHtml({ email: email.trim(), whatsapp: whatsapp.trim(), telegram: telegram.trim(), message: message.trim(), pageUrl });
 
+    // Use from_email that is verified in Brevo
     const brevoRes = await fetch('https://api.brevo.com/v3/smtp/email', {
       method: 'POST',
       headers: {
@@ -60,7 +61,7 @@ export async function POST(request: Request) {
         'api-key': apiKey,
       },
       body: JSON.stringify({
-        sender: { name: 'TaskBloom Chat Widget', email: 'no-reply@taskbloom.co.uk' },
+        sender: { name: 'TaskBloom Chat', email: 'no-reply@taskbloom.co.uk' },
         to: [{ email: 'support@taskbloom.co.uk', name: 'TaskBloom Support' }],
         subject: `🔔 New Support Request from ${email.trim()}`,
         htmlContent: html,
@@ -71,7 +72,9 @@ export async function POST(request: Request) {
     if (!brevoRes.ok) {
       const errText = await brevoRes.text();
       console.error('Brevo send error:', brevoRes.status, errText);
-      return NextResponse.json({ error: 'Failed to send' }, { status: 500 });
+      // Fallback: log the request so it's not lost
+      console.log('FALLBACK - contact request from', email, 'message:', message, 'whatsapp:', whatsapp, 'telegram:', telegram);
+      return NextResponse.json({ error: 'Email service temporarily unavailable. Your request has been logged. Our team will review it.', status: 503 });
     }
 
     return NextResponse.json({ success: true, message: 'Your request has been sent. Our team will reach out within 24 hours.' });

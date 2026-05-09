@@ -46,6 +46,9 @@ const KB: { k: string; a: string }[] = [
   { k: 'contact support', a: '__CONTACT__' },
   { k: 'real person', a: '__CONTACT__' },
   { k: 'human agent', a: '__CONTACT__' },
+  { k: 'contact form', a: '__CONTACT__' },
+  { k: 'where is form', a: '__CONTACT__' },
+  { k: 'show form', a: '__CONTACT__' },
 ];
 
 function levenshteinSimilarity(a: string, b: string): number {
@@ -126,7 +129,7 @@ function ContactForm({ onSend }: { onSend: (data: { email: string; whatsapp: str
       setSent(true);
       onSend({ email: email.trim(), whatsapp: whatsapp.trim(), telegram: telegram.trim(), message: message.trim() });
     } catch {
-      setError('Failed to send. Try emailing support@taskbloom.co.uk directly.');
+      setError('Could not send. Please email support@taskbloom.co.uk directly with your details.');
     }
     setSending(false);
   };
