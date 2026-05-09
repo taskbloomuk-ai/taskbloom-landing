@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import ChatWidget from '@/components/ChatWidget';
 
 const siteUrl = 'https://taskbloom.co.uk';
 
@@ -45,6 +46,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className="dark scroll-smooth">
       <head>
         <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%230a0a0f'/><rect width='32' height='32' rx='8' fill='url(%23g)'/><defs><linearGradient id='g' x1='0' y1='0' x2='32' y2='32' gradientUnits='userSpaceOnUse'><stop stop-color='%236366f1'/><stop offset='1' stop-color='%237c3aed'/></linearGradient></defs><text x='16' y='23' text-anchor='middle' font-family='system-ui,-apple-system,sans-serif' font-weight='800' font-size='20' fill='white'>T</text></svg>" />
+        <link rel="stylesheet" href="/chat-widget.css" />
         <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%230a0a0f'/><defs><linearGradient id='g' x1='0' y1='0' x2='64' y2='64'><stop stop-color='%236366f1'/><stop offset='1' stop-color='%237c3aed'/></linearGradient></defs><rect width='64' height='64' rx='14' fill='url(%23g)'/><text x='32' y='46' text-anchor='middle' font-family='system-ui,-apple-system,sans-serif' font-weight='800' font-size='40' fill='white'>T</text></svg>" />
         <meta name="theme-color" content="#0a0a0f" />
         <script
@@ -65,6 +67,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="min-h-screen bg-[#0a0a0f] text-[#f8fafc] font-sans antialiased">
         {children}
         <ScrollToTop />
+        <ChatWidget />
       </body>
     </html>
   );
